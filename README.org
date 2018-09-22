@@ -1,0 +1,74 @@
+#+title: redis集群配置
+
+** 环境
+   1. Ubuntu 18.04
+
+   2. redis 4.0.11
+
+   3. ruby 2.5.1p57
+
+** 启动和停止
+
+   1. 为cluster-start.sh和cluster-stop赋执行权限
+
+   2. 执行 ./cluster-start.sh 启动集群
+
+   3. 执行 ./cluster-stop.sh 停止集群
+
+** 搭建过程
+
+   http://redisdoc.com/topic/cluster-tutorial.html#id7
+
+** 客户端连接集群
+*** redis-cli连接
+
+    执行下面的命令连接集群
+#+BEGIN_SRC shell
+./redis-cli -p 7000 -a foobared -c
+#+END_SRC
+
+  -p 端口
+
+  -a 密码
+
+  -c 集群模式连接
+** 遇到的问题
+*** redis-trib.rb执行报错no ruby...
+    
+    需要安装ruby环境,并使用gem安装redis
+
+*** redis-trib.rb create命令报错Sorry, can't connect to node...
+    
+    redis设置了密码，需要修改ruby的redis环境
+    
+    执行 find / -name client.rb 
+
+    找到 /usr/local/lib/ruby/gems/2.5.0/gems/redis-4.0.2/lib/redis/client.rb
+
+    打开client.rb, 并修改password为设置的密码
+
+#+BEGIN_QUOTE
+    DEFAULTS = {
+      :url => lambda { ENV["REDIS_URL"] },
+      :scheme => "redis",
+      :host => "127.0.0.1",
+      :port => 6379,
+      :path => nil,
+      :timeout => 5.0,
+      :password => 'foobared',
+      :db => 0,
+      :driver => nil,
+      :id => nil,
+      :tcp_keepalive => 0,
+      :reconnect_attempts => 1,
+      :inherit_socket => false
+    }
+#+END_QUOTE
+*** 集群启动后从节点无法连接到主节点
+
+    因为主从节点都设置了密码，需要在redis.conf中设置 *masterauth foobared*
+  
+** 其他
+
+   配置中加载了rebloom模块，需要安装和配置
+   
