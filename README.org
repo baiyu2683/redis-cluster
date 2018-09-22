@@ -47,11 +47,11 @@
 
     打开client.rb, 并修改password为设置的密码
 
-#+BEGIN_QUOTE
+#+BEGIN_SRC ruby
     DEFAULTS = {
-      :url => lambda { ENV["REDIS_URL"] },
+      :url => #id7lambda { ENV["REDIS_URL"] },
       :scheme => "redis",
- #id7     :host => "127.0.0.1",
+      :host => "127.0.0.1",
       :port => 6379,
       :path => nil,
       :timeout => 5.0,
@@ -63,7 +63,8 @@
       :reconnect_attempts => 1,
       :inherit_socket => false
     }
-#+END_QUOTE
+#+END_SRC
+
 *** 集群启动后从节点无法连接到主节点
 
     因为主从节点都设置了密码，需要在redis.conf中设置 *masterauth foobared*
