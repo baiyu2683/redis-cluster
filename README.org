@@ -17,7 +17,7 @@
 
 ** 搭建过程
 
-   http://redisdoc.com/topic/cluster-tutorial.html#id7
+   http://redisdoc.com/topic/cluster-tutorial.html
 
 ** 客户端连接集群
 *** redis-cli连接
@@ -51,7 +51,7 @@
     DEFAULTS = {
       :url => lambda { ENV["REDIS_URL"] },
       :scheme => "redis",
-      :host => "127.0.0.1",
+ #id7     :host => "127.0.0.1",
       :port => 6379,
       :path => nil,
       :timeout => 5.0,
