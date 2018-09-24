@@ -69,6 +69,10 @@
 
     因为主从节点都设置了密码，需要在redis.conf中设置 *masterauth foobared*
   
+*** 设置daemonize为yes之后, 配置的pidfile路径/var/run没有生成pid文件
+
+    权限问题，/var/run目录权限为drwxr_xr_x, redis不是root启动的所以没有写权限，可以修改pid文件存储位置、修改目录权限、或者root启动
+    
 ** 其他
 
    配置中加载了rebloom模块，需要安装和配置

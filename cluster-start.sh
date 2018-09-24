@@ -7,6 +7,6 @@ dir_len=${#dirs[*]}
 for dir in ${dirs[@]}
 do
     cd ${dir}
-    nohup ../redis-server ./redis.conf >/dev/null 2>&1 &
+    ../redis-server ./redis.conf
     cd ..
 done
